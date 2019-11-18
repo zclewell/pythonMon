@@ -1,5 +1,5 @@
 from abc import ABC
-from move import Move, MoveCategories
+from move import Move
 from monTypes import MonTypes
 
 
@@ -32,25 +32,3 @@ class Mon(ABC):
 
     def __exit__(self, type, value, tb):
         pass
-
-    def use_move(self, move, opponent, environment):
-        assert move in self.moves
-
-        # TODO this always returns true?!
-        # if move.moveCategory is MoveCategories.Status:
-        #     return
-
-        # https: // bulbapedia.bulbagarden.net/wiki/Damage
-        damage = (2 * self.level / 5) + 2
-        if move.moveCategory == MoveCategories.Physical:
-            damage *= move.moveStats['base_power'] * self.stats['attack'] / \
-                opponent.stats['defense']
-        elif move.moveCategory == MoveCategories.Special:
-            damage *= move.moveStats['base_power'] * self.stats['special_attack'] / \
-                opponent.stats['special_defense']
-        damage = damage / 50 + 2
-
-        health = opponent.stats['health'] - damage
-        if health < 0:
-            health = 0
-        opponent.stats['health'] = int(health)
