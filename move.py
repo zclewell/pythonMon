@@ -1,6 +1,7 @@
 from abc import ABC
 from enum import Enum
-from  types import Types
+from monTypes import MonTypes
+
 
 def gen_move_stats(base_power, accuracy, power_points):
     return {
@@ -9,19 +10,19 @@ def gen_move_stats(base_power, accuracy, power_points):
         'power_points': power_points
     }
 
+
 class MoveCategories(Enum):
-    Physical=1
-    Special=1
-    Status=1
+    Physical = 1
+    Special = 1
+    Status = 1
+
 
 class Move:
-    def __init__(self, moveType, moveCategory, stats):
-        assert isinstance(moveType, Types)
+    def __init__(self, moveType, moveCategory, moveStats):
+        assert isinstance(moveType, MonTypes)
         self.moveType = moveType
-        self.stats = stats
-    
-    def use(self, stats):
-        
+        self.moveStats = moveStats
+        self.moveCategory = moveCategory
 
-tackle = Move(Types.Normal, MoveCategories.Physical, gen_move_stats(40, 100, 35))
-        
+    def use(self, stats):
+        assert self.moveStats['power_points'] > 0
