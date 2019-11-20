@@ -11,5 +11,5 @@ class Charizard(Mon):
             name = 'Charizard'
         if not stats:
             stats = gen_mon_stats(90, 90, 90, 90, 90, 90)
-        super(Charizard, self).__init__(name, stats, [
+        Mon.__init__(self, name, stats, [
             MonTypes.Fire, MonTypes.Flying], moves, level)

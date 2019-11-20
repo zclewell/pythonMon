@@ -2,7 +2,7 @@ from move import StatusMove, PhysicalMove, SpecialMove
 from monTypes import MonTypes
 
 
-def gen_move_stats(base_power, accuracy, power_points):
+def gen_attack_move_stats(base_power, accuracy, power_points):
     return {
         'base_power': base_power,
         'accuracy': accuracy,
@@ -10,7 +10,18 @@ def gen_move_stats(base_power, accuracy, power_points):
     }
 
 
+def gen_status_move_stats(health, speed, attack, defense, special_attack, special_defense):
+    return {
+        'health': health,
+        'speed': speed,
+        'attack': attack,
+        'defense': defense,
+        'special_attack': special_attack,
+        'special_defense': special_defense
+    }
+
+
 tackle = PhysicalMove(MonTypes.Normal,
-                      gen_move_stats(40, 100, 35))
+                      gen_attack_move_stats(40, 100, 35))
 pound = PhysicalMove(MonTypes.Normal,
-                     gen_move_stats(40, 100, 35))
+                     gen_attack_move_stats(40, 100, 35))
