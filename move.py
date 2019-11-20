@@ -11,22 +11,22 @@ class Move(ABC):
         self.moveStats = moveStats
 
     def use(self, user, opponent,  environment):
-        pass
+        raise NotImplementedError
 
 
 class StatusMove(Move):
     def use(self, user, opponent, environment):
-        pass
+        raise NotImplementedError
 
 
-class PhysicalMove(Move):
+class AttackMove(Move):
     def use(self, user, opponent, environment):
         assert self in user.moves
 
         # https://bulbapedia.bulbagarden.net/wiki/Damage
         damage = (2 * user.level / 5) + 2
-        damage *= self.moveStats['base_power'] * user.stats['attack'] / \
-            opponent.stats['defense']
+        damage *= self.moveStats['base_power'] * user.stats[self.attack_name] / \
+            opponent.stats[self.defense_name]
         damage = damage / 50 + 2
 
         modifier = 1
@@ -45,27 +45,15 @@ class PhysicalMove(Move):
         opponent.stats['health'] = int(health)
 
 
-class SpecialMove(Move):
-    def use(self, user, opponent, environment):
-        assert self in user.moves
+class PhysicalMove(AttackMove):
+    def __init__(self, moveType, moveStats):
+        self.attack_name = 'attack'
+        self.defense_name = 'defense'
+        Move.__init__(self, moveType, moveStats)
 
-        # https://bulbapedia.bulbagarden.net/wiki/Damage
-        damage = (2 * user.level / 5) + 2
-        damage *= self.moveStats['base_power'] * user.stats['special_attack'] / \
-            opponent.stats['special_defense']
-        damage = damage / 50 + 2
 
-        modifier = 1
-
-        # stab bonus
-        if self.moveType in user.monTypes:
-            modifier *= 1.5
-        
-        # effectiveness 
-        for monType in opponent.monTypes:
-            modifier *= how_effective(self.moveType, monType)
-
-        health = opponent.stats['health'] - damage * modifier
-        if health < 0:
-            health = 0
-        opponent.stats['health'] = int(health)
+class SpecialMove(AttackMove):
+    def __init__(self, moveType, moveStats):
+        self.attack_name = 'special_attack'
+        self.defense_name = 'special_defense'
+        Move.__init__(self, moveType, moveStats)

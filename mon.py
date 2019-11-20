@@ -22,6 +22,7 @@ class Mon(ABC):
         assert len(monTypes) <= 2 and len(monTypes) >= 1
         for monType in monTypes:
             assert isinstance(monType, MonTypes)
+        self.monTypes = monTypes
         self.name = name
         self.stats = stats
         self.moves = moves

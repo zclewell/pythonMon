@@ -132,7 +132,7 @@ def how_effective(move_type, opp_type):
         if move_type is MonTypes.Fighting:
             return super_effective
         if move_type is MonTypes.Flying:
-            return not_very_effective:
+            return not_very_effective
         if move_type is MonTypes.Poison:
             return not_effective
         if move_type is MonTypes.Ground:
