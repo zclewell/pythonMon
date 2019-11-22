@@ -1,9 +1,39 @@
-from moveList import tackle,  pound
+from moveList import Tackle, Pound
 from monList import Charizard
 
+
+class Battle:
+    def __init__(self, mon1, mon2):
+        self.mon1 = mon1
+        self.mon2 = mon2
+        self.mon1_turn = True
+        self.environment = {}
+
+    def _is_over(self):
+        mon1_health = self.mon1.stats['health']
+        mon2_health = self.mon2.stats['health']
+        return mon1_health <= 0 or mon2_health <= 0
+
+    def take_turn(self):
+        if self.mon1_turn:
+            user = self.mon1
+            oppt = self.mon2
+        else:
+            user = self.mon2
+            oppt = self.mon1
+        self.mon1_turn = not self.mon1_turn
+        user.moves[0].use(user, oppt, self.environment)
+
+    def start(self):
+        with self.mon1, self.mon2:
+            while not self._is_over():
+                self.take_turn()
+
+
 if __name__ == '__main__':
-    moves = [tackle, pound]
-    mon1 = Charizard(moves, 36)
-    mon2 = Charizard(moves, 40, nickname='Alex')
-    tackle.use(mon1, mon2, None)
-    print(mon2.stats)
+    moves1 = [Tackle(), Pound()]
+    mon1 = Charizard(moves1, 36)
+    moves2 = [Tackle(), Pound()]
+    mon2 = Charizard(moves2, 40, nickname='Alex')
+    battle = Battle(mon1, mon2)
+    battle.start()
