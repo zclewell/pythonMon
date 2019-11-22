@@ -1,5 +1,4 @@
 from mon import Mon, gen_mon_stats
-from moveList import tackle, pound
 from monTypes import MonTypes
 
 
