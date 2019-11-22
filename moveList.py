@@ -21,7 +21,14 @@ def gen_status_move_stats(health, speed, attack, defense, special_attack, specia
     }
 
 
-tackle = PhysicalMove(MonTypes.Normal,
-                      gen_attack_move_stats(40, 100, 35))
-pound = PhysicalMove(MonTypes.Normal,
-                     gen_attack_move_stats(40, 100, 35))
+class Tackle(PhysicalMove):
+    def __init__(self):
+        PhysicalMove.__init__(self, MonTypes.Normal, gen_attack_move_stats(40, 100, 35))
+
+
+class Pound(PhysicalMove):
+    def __init__(self):
+        PhysicalMove.__init__(self, MonTypes.Normal,
+                              gen_attack_move_stats(40, 100, 35))
+
+
