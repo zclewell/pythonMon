@@ -31,5 +31,9 @@ class Mon(ABC):
     def __enter__(self):
         print('{} Lv. {} joined the battle!'.format(self.name, self.level))
 
+    def use_move(self, move, opponent, environment):
+        assert move in self.moves
+        move.use(self, opponent, environment)
+
     def __exit__(self, type, value, tb):
         pass

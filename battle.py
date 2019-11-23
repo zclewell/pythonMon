@@ -22,7 +22,17 @@ class Battle:
             user = self.mon2
             oppt = self.mon1
         self.mon1_turn = not self.mon1_turn
-        user.moves[0].use(user, oppt, self.environment)
+        print("{}'s turn, select a move".format(user.name))
+        moves = user.moves
+        for idx, move in enumerate(moves):
+            print('{}: {} - {} ({})'.format(idx,
+                                            move.__class__.__name__,
+                                            move.move_type.name,
+                                            move.move_stats['power_points']))
+        index = int(input())
+        while index < 0 or index >= len(moves):
+            index = int(input('Invalid, try again'))
+        user.use_move(moves[index], oppt, self.environment)
 
     def start(self):
         with self.mon1, self.mon2:
