@@ -22,7 +22,7 @@ class Colors:
     colors['Dark'] = '\033[m'
     colors['Steel'] = '\033[m'
     colors['Fairy'] = '\033[m'
-    
+
     @staticmethod
     def colorize(word, color):
         return '{}{}{}'.format(
@@ -30,7 +30,7 @@ class Colors:
             word,
             Colors.colors['_END']
         )
-    
+
     @staticmethod
     def color_type(name):
         return Colors.colorize(
@@ -39,14 +39,27 @@ class Colors:
         )
 
 
+def show_use_attack(selectedMove):
+    print('{} used {}!'.format(
+        selectedMove.user.name,
+        selectedMove.move.__class__.__name__
+    ))
+    pass
+
+
+def show_use_status(selectedMove):
+    pass
+
+def show_miss():
+    print('It missed!')
+
+
 def show_moves(mon, color):
     print("{}'s turn, select a move".format(
-            Colors.colorize(mon.name, color)))
+        Colors.colorize(mon.name, color)))
     moves = mon.moves
     for idx, move in enumerate(moves):
         print('{}: {} - {} ({})'.format(idx,
                                         move.__class__.__name__,
                                         Colors.color_type(move.move_type.name),
                                         move.move_stats['power_points']))
-
-

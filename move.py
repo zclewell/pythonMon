@@ -6,10 +6,11 @@ from effective import how_effective
 
 class Move:
     def  __init__(self):
-        pass
+        raise NotImplementedError
 
     def use(self):
         self.move_stats['power_points'] -= 1
+        return True
 
 class StatusMove(Move):
     def __init__(self, move_type, move_stats):
@@ -17,6 +18,10 @@ class StatusMove(Move):
         self.move_stats = move_stats
 
     def use(self, user, target, environment):
+        hit = Move.use(self)
+        if not hit:
+            return hit
+
         assert self in user.moves
         target.stats['health'] *= self.move_stats['health']
         target.stats['speed'] *= self.move_stats['speed']
@@ -24,7 +29,7 @@ class StatusMove(Move):
         target.stats['defense'] *= self.move_stats['defense']
         target.stats['special_attack'] *= self.move_stats['special_attack']
         target.stats['special_defense'] *= self.move_stats['special_defense']
-        Move.use(self)
+        return hit
 
 
 class AttackMove(Move):
@@ -34,6 +39,9 @@ class AttackMove(Move):
         self.move_stats = move_stats
 
     def use(self, user, target, environment):
+        hit = Move.use(self)
+        if not hit:
+            return hit
 
         # https://bulbapedia.bulbagarden.net/wiki/Damage
         damage = (2 * user.level / 5) + 2
@@ -55,7 +63,7 @@ class AttackMove(Move):
         if health < 0:
             health = 0
         target.stats['health'] = int(health)
-        Move.use(self)
+        return hit
 
 
 class PhysicalMove(AttackMove):
@@ -70,3 +78,9 @@ class SpecialMove(AttackMove):
         self.attack_name = 'special_attack'
         self.defense_name = 'special_defense'
         AttackMove.__init__(self, move_type, move_stats)
+
+class PriorityMove(Move):
+    def __init__(self, priorty):
+        self.priorty = priorty
+
+
