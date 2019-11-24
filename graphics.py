@@ -4,24 +4,25 @@ class Colors:
     colors['BLUE'] = '\033[34m'
     colors['_END'] = '\033[0m'
 
-    colors['Normal'] = ''
-    colors['Fire'] = '\033[31m'
-    colors['Fighting'] = '\033[88m'
-    colors['Water'] = '\033[m'
-    colors['Flying'] = '\033[m'
-    colors['Grass'] = '\033[m'
-    colors['Poison'] = '\033[m'
-    colors['Electric'] = '\033[m'
-    colors['Ground'] = '\033[m'
-    colors['Psychic'] = '\033[m'
-    colors['Rock'] = '\033[m'
-    colors['Ice'] = '\033[m'
-    colors['Bug'] = '\033[m'
-    colors['Dragon'] = '\033[m'
-    colors['Ghost'] = '\033[m'
-    colors['Dark'] = '\033[m'
-    colors['Steel'] = '\033[m'
-    colors['Fairy'] = '\033[m'
+    # http://www.epidemicjohto.com/t882-type-colors-hex-colors
+    colors['Normal'] = '\033[48:2:168:167:122m'
+    colors['Fire'] = '\033[48:2:238:129:48m'
+    colors['Fighting'] = '\033[48:2:194:46:40m'
+    colors['Water'] = '\033[48:2:99:144:240m'
+    colors['Flying'] = '\033[48:2:169:143:243m'
+    colors['Grass'] = '\033[48:2:122:199:76m'
+    colors['Poison'] = '\033[48:2:163:62:161m'
+    colors['Electric'] = '\033[48:2:247:208:44m'
+    colors['Ground'] = '\033[48:2:226:191:101m'
+    colors['Psychic'] = '\033[48:2:249:85:135m'
+    colors['Rock'] = '\033[48:2:182:161:54m'
+    colors['Ice'] = '\033[48:2:150:217:214m'
+    colors['Bug'] = '\033[48:2:166:185:26m'
+    colors['Dragon'] = '\033[48:2:111:53:252m'
+    colors['Ghost'] = '\033[48:2:115:87:151m'
+    colors['Dark'] = '\033[48:2:112:87:70m'
+    colors['Steel'] = '\033[48:2:183:183:206m'
+    colors['Fairy'] = '\033[48:2:214:133:173m'
 
     @staticmethod
     def colorize(word, color):
@@ -34,7 +35,7 @@ class Colors:
     @staticmethod
     def color_type(name):
         return Colors.colorize(
-            name,
+            ' {} '.format(name),
             Colors.colors[name]
         )
 
@@ -49,6 +50,7 @@ def show_use_attack(selectedMove):
 
 def show_use_status(selectedMove):
     pass
+
 
 def show_miss():
     print('It missed!')
