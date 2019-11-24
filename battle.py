@@ -1,5 +1,7 @@
-from moveList import Tackle, Pound
+from moveList import *
 from monList import Charizard
+from graphics import show_moves, Colors
+
 
 
 class Battle:
@@ -18,18 +20,15 @@ class Battle:
         if self.mon1_turn:
             user = self.mon1
             oppt = self.mon2
+            color = Colors.colors['RED']
         else:
             user = self.mon2
             oppt = self.mon1
+            color = Colors.colors['BLUE']
         self.mon1_turn = not self.mon1_turn
-        print("{}'s turn, select a move".format(user.name))
-        moves = user.moves
-        for idx, move in enumerate(moves):
-            print('{}: {} - {} ({})'.format(idx,
-                                            move.__class__.__name__,
-                                            move.move_type.name,
-                                            move.move_stats['power_points']))
+        show_moves(user, color)
         index = int(input())
+        moves = user.moves
         while index < 0 or index >= len(moves):
             index = int(input('Invalid, try again'))
         user.use_move(moves[index], oppt, self.environment)
@@ -41,7 +40,7 @@ class Battle:
 
 
 if __name__ == '__main__':
-    moves1 = [Tackle(), Pound()]
+    moves1 = [Tackle(), Pound(), Ember(), JumpKick()]
     mon1 = Charizard(moves1, 36)
     moves2 = [Tackle(), Pound()]
     mon2 = Charizard(moves2, 40, nickname='Alex')

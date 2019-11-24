@@ -31,4 +31,16 @@ class Pound(PhysicalMove):
         PhysicalMove.__init__(self, MonTypes.Normal,
                               gen_attack_move_stats(40, 100, 35))
 
+class Ember(SpecialMove):
+    def __init__(self):
+        PhysicalMove.__init__(self, MonTypes.Fire,
+                              gen_attack_move_stats(40, 100, 25))
+
+class JumpKick(PhysicalMove):
+    def __init__(self):
+        PhysicalMove.__init__(self, MonTypes.Fighting,
+                              gen_attack_move_stats(100, 95, 10))
+
+
+
 
